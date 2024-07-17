@@ -2,13 +2,13 @@ from enum import Enum
 from pydantic import BaseModel
 
 
-class Suit(Enum):
+class CardSuit(Enum):
     herz = "Herz"
     kreuz = "Kreuz"
     schellen = "Schellen"
     schippen = "Schippen"
 
-class Name(Enum):
+class CardName(Enum):
     ass = "Ass"
     zehn = "10"
     koenig = "Koenig"
@@ -16,14 +16,14 @@ class Name(Enum):
     unter = "Unter"
     sieben = "7"
 
-class Value(BaseModel):
-    name:Name
-    points: int
+class CardRank(BaseModel):
+    name:CardName
+    value: int
 
 class Card(BaseModel):
-    suit: Suit
-    value: Value
+    suit: CardSuit
+    rank: CardRank
 
     def show(self) -> str:
-        return f"{self.suit} {self.value.name}"
+        return f"{self.suit.value} {self.rank.name.value}"
 
